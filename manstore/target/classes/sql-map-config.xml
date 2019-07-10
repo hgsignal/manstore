@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration 
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- Alias 설정 -->
+	<!-- 회원 -->
+	<typeAliases>
+		<typeAlias alias="user" type="com.man.store.model.member.UserVO" />
+		<typeAlias alias="prdBoard" type="com.man.store.model.prdBoard.PrdBoardVO"/>
+		<typeAlias alias="product" type="com.man.store.model.product.ProductVO"/>
+		<typeAlias alias="wish" type="com.man.store.model.prdWishList.PrdWishListVO"/>
+	</typeAliases>
+	
+	<!-- Sql Mapper 설정 -->
+	<mappers>
+	<!-- 로그인 -->	
+		<mapper resource="mapping/member/user-mapping.xml" />
+	<!-- 상품 리스트-->
+		<mapper resource="mapping/prdBoard/pb-mapping.xml"/>
+	<!-- 위시리스트 -->
+		<mapper resource="mapping/prdWish/wh-mapping.xml"/>
+	</mappers>
+</configuration>

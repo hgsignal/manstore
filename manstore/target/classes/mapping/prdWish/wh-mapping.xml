@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PrdWishDAO">
+	
+	<!-- 상품 리스트  + 페이징 -->
+	<!-- 최근순 -->
+	<select id="listWish" resultType="wish">
+		SELECT * FROM (
+			SELECT ROWNUM AS RN, A.* FROM (
+				SELECT * FROM PRODUCT_BOARD 
+					WHERE MENU_ID=#{product.menu_id} 
+					ORDER BY B_REGDATE DESC
+			) A ) WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 리스트 상품 갯수 -->
+	<select id="countWish" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM PRODUCT_BOARD WHERE MENU_ID=#{menu_id}
+	</select>
+	
+	<!-- 상품 번호 -->
+	<select id="getPrdId" resultType="wish">
+		
+	</select>
+	
+	<!-- 상품 정보 -->
+	<select id="infoProduct" resultType="wish">
+		SELECT
+		PRD_NAME,
+		PRD_PRICE,
+		PRD_ID,
+		STOCK
+		FROM
+		PRODUCT NATURAL JOIN PRODUCT_BOARD WHERE PRD_ID=#{prd_id} 
+	</select>
+	
+	<!-- 상품 상세보기 -->
+	<select id="readPrdBoard" resultType="wish">
+		SELECT * FROM PRODUCT 
+			NATURAL JOIN PRODUCT_BOARD 
+			WHERE PRD_ID = 
+				(SELECT PRD_ID FROM PRODUCT_BOARD 
+				WHERE PRD_B_NUM = #{prd_b_num})
+	</select>
+</mapper>
